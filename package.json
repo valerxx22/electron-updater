@@ -1,0 +1,38 @@
+{
+  "name": "electron-updater",
+  "version": "1.0.0",
+  "description": "Electron auto updater example",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "release": "build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valerxx22/electron-updater.git"
+  },
+  "devDependencies": {
+    "electron": "^9.0.3",
+    "electron-builder": "^22.7.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "electron-updater": "^4.3.1"
+  },
+  "build": {
+    "appId": "com.electron.updater",
+    "productName": "electron-updater",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "type": "distribution"
+    },
+    "publish": [
+      "github"
+    ]
+  },
+  "homepage": "https://github.com/valerxx22/electron-updater.git",
+  "keywords": []
+}
