@@ -47,22 +47,27 @@ app.on('window-all-closed', () => {
 
 
 autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for update...');
   dispatch('Checking for update...')
 })
 
 autoUpdater.on('update-available', (info) => {
+  console.log('Update available');
   dispatch('Update available.')
 })
 
 autoUpdater.on('update-not-available', (info) => {
+  console.log('Update not available');
   dispatch('Update not available.')
 })
 
 autoUpdater.on('error', (err) => {
+  console.log('Error in auto-updater');
   dispatch('Error in auto-updater. ' + err)
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
+  console.log('download-progress');
   // let log_message = "Download speed: " + progressObj.bytesPerSecond
   // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%'
   // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')'
@@ -73,5 +78,6 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 
 autoUpdater.on('update-downloaded', (info) => {
+  console.log('Update downloaded');
   dispatch('Update downloaded')
 })

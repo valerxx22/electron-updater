@@ -1,6 +1,6 @@
 {
   "name": "electron-updater",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Electron auto updater example",
   "main": "src/main.js",
   "scripts": {
@@ -23,15 +23,69 @@
     "electron-updater": "^4.3.1"
   },
   "build": {
-    "appId": "com.electron.updater",
-    "productName": "electron-updater",
-    "mac": {
-      "category": "public.app-category.developer-tools",
-      "type": "distribution"
+    "productName": "Nutaku",
+    "appId": "org.develar.Nutaku",
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     },
-    "publish": [
-      "github"
-    ]
+    "win": {
+      "certificateFile": "private/ClientCert.p12",
+      "timeStampServer": "http://timestamp.globalsign.com/scripts/timstamp.dll",
+      "verifyUpdateCodeSignature": true,
+      "publisherName": "Nutaku Entertainment Ltd.",
+      "target": [
+        "nsis"
+      ],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "http://127.0.0.1/release"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true,
+      "differentialPackage": false,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "menuCategory": true,
+      "shortcutName": "Electron Updater"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "dist"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "nutaku",
+      "repo": "nutaku-client",
+      "private": false
+    }
   },
   "homepage": "https://github.com/valerxx22/electron-updater.git",
   "keywords": []
