@@ -1,5 +1,10 @@
 {
   "name": "electron-updater",
+  "author": {
+    "name": "Nutaku",
+    "email": "support@nutaku.net",
+    "url": "https://www.nutaku.net"
+  },
   "version": "1.0.2",
   "description": "Electron auto updater example",
   "main": "src/main.js",
