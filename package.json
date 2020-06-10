@@ -87,8 +87,8 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "nutaku",
-      "repo": "nutaku-client",
+      "owner": "valerxx22",
+      "repo": "electron-updater",
       "private": false
     }
   },
