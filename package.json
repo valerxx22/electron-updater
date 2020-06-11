@@ -5,7 +5,7 @@
     "email": "support@nutaku.net",
     "url": "https://www.nutaku.net"
   },
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "Electron auto updater example",
   "main": "src/main.js",
   "scripts": {
@@ -86,10 +86,8 @@
       "output": "dist"
     },
     "publish": {
-      "provider": "github",
-      "owner": "valerxx22",
-      "repo": "electron-updater",
-      "private": false
+      "provider": "generic",
+      "url": "http://127.0.0.1:5000"
     }
   },
   "homepage": "https://github.com/valerxx22/electron-updater.git",
