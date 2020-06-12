@@ -1,14 +1,14 @@
 const { app, BrowserWindow } = require('electron')
 const { autoUpdater } = require("electron-updater")
 
-let win
+let mainWindow
 
-const dispatch = (data) => {
-  win.webContents.send('message', data)
+const sendStatusToWindow = (data) => {
+  mainWindow.webContents.send('message', data)
 }
 
 const createDefaultWindow = () => {
-  win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 700,
     webPreferences: {
@@ -16,17 +16,15 @@ const createDefaultWindow = () => {
     }
   })
 
-  if (process.env.NODE_ENV === 'development') {
-    win.webContents.openDevTools()
-  }
+  mainWindow.webContents.openDevTools()
 
-  win.on('closed', () => {
-    win = null
+  mainWindow.on('closed', () => {
+    mainWindow = null
   })
 
-  win.loadFile('src/index.html')
+  mainWindow.loadFile('src/index.html')
 
-  return win
+  return mainWindow
 }
 
 app.on('ready', () => {
@@ -35,8 +33,8 @@ app.on('ready', () => {
 
   autoUpdater.checkForUpdatesAndNotify()
 
-  win.webContents.on('did-finish-load', () => {
-    win.webContents.send('version', app.getVersion())
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('version', app.getVersion())
   })
 
 })
@@ -48,36 +46,36 @@ app.on('window-all-closed', () => {
 
 autoUpdater.on('checking-for-update', () => {
   console.log('Checking for update...');
-  dispatch('Checking for update...')
+  sendStatusToWindow('Checking for update...')
 })
 
 autoUpdater.on('update-available', (info) => {
   console.log('Update available');
-  dispatch('Update available.')
+  sendStatusToWindow('Update available.')
 })
 
 autoUpdater.on('update-not-available', (info) => {
   console.log('Update not available');
-  dispatch('Update not available.')
+  sendStatusToWindow('Update not available.')
 })
 
 autoUpdater.on('error', (err) => {
   console.log('Error in auto-updater');
-  dispatch('Error in auto-updater. ' + err)
+  sendStatusToWindow('Error in auto-updater. ' + err)
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
   console.log('download-progress');
-  // let log_message = "Download speed: " + progressObj.bytesPerSecond
-  // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%'
-  // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')'
-  // dispatch(log_message)
+  let log_message = "Download speed: " + progressObj.bytesPerSecond
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%'
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')'
+  sendStatusToWindow(log_message)
 
-    win.webContents.send('download-progress', progressObj.percent)
+    mainWindow.webContents.send('download-progress', progressObj.percent)
 
 })
 
 autoUpdater.on('update-downloaded', (info) => {
   console.log('Update downloaded');
-  dispatch('Update downloaded')
+  sendStatusToWindow('Update downloaded')
 })
