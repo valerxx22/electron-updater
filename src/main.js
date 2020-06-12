@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const { autoUpdater } = require("electron-updater")
 
 let mainWindow
@@ -34,7 +34,7 @@ app.on('ready', () => {
   autoUpdater.checkForUpdatesAndNotify()
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.send('version', app.getVersion())
+    sendStatusToWindow('version', app.getVersion())
   })
 
 })
@@ -52,6 +52,7 @@ autoUpdater.on('checking-for-update', () => {
 autoUpdater.on('update-available', (info) => {
   console.log('Update available');
   sendStatusToWindow('Update available.')
+  mainWindow.webContents.send('update_available');
 })
 
 autoUpdater.on('update-not-available', (info) => {
@@ -71,11 +72,17 @@ autoUpdater.on('download-progress', (progressObj) => {
   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')'
   sendStatusToWindow(log_message)
 
-    mainWindow.webContents.send('download-progress', progressObj.percent)
+  sendStatusToWindow('download-progress', progressObj.percent)
 
 })
 
 autoUpdater.on('update-downloaded', (info) => {
   console.log('Update downloaded');
   sendStatusToWindow('Update downloaded')
+  mainWindow.webContents.send('update_downloaded');
+  // autoUpdater.quitAndInstall();  
 })
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
