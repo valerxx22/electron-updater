@@ -1,7 +1,7 @@
 {
   "name": "electron-updater",
   "author": "valerxx22",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Electron auto updater example",
   "main": "src/main.js",
   "scripts": {
