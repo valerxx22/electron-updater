@@ -16,7 +16,7 @@
     "url": "git+https://github.com/valerxx22/electron-updater.git"
   },
   "devDependencies": {
-    "electron": "^9.0.3",
+    "electron": "^9.3.0",
     "electron-builder": "^22.7.0"
   },
   "dependencies": {
